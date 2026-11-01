@@ -260,12 +260,12 @@
 
         <form class="contact-form" id="repairForm">
           <div class="row">
-            <input id="repairName" type="text" name="name" placeholder="Your Name" required />
-            <input id="repairEmail" type="email" name="email" placeholder="Email Address" required />
+            <input id="repairName" type="text" name="name" placeholder="Your Name" maxlength="160" required />
+            <input id="repairEmail" type="email" name="email" placeholder="Email Address" maxlength="320" required />
           </div>
 
           <div class="row">
-            <input id="repairPhone" type="text" name="phone" placeholder="Phone Number" required />
+            <input id="repairPhone" type="text" name="phone" placeholder="Phone Number" maxlength="50" required />
             <select id="repairService" name="service" required>
               <option>Computer Repair</option>
               <option>Software Installation</option>
@@ -273,7 +273,7 @@
             </select>
           </div>
 
-          <textarea id="repairIssue" name="issue" rows="5" placeholder="Describe your computer problem" required></textarea>
+          <textarea id="repairIssue" name="issue" rows="5" maxlength="3000" placeholder="Describe your computer problem" required></textarea>
 
           <button type="submit" class="submit-btn acrylic-btn">Submit Repair Request</button>
           <p id="requestSaveMessage" class="message" role="status"></p>
@@ -285,27 +285,33 @@
   <script>
     const repairForm = document.getElementById('repairForm');
 
-    repairForm.addEventListener('submit', function (event) {
+    repairForm.addEventListener('submit', async function (event) {
       event.preventDefault();
+      const submitButton = repairForm.querySelector('[type="submit"]');
+      submitButton.disabled = true;
 
       const requestData = {
         name: document.getElementById('repairName').value.trim(),
         email: document.getElementById('repairEmail').value.trim(),
         phone: document.getElementById('repairPhone').value.trim(),
         issue: document.getElementById('repairIssue').value.trim(),
-        service: document.getElementById('repairService').value.trim()
+        service: document.getElementById('repairService').value.trim(),
+        sourcePage: 'computer-repair.html'
       };
 
       try {
-        MRXSite.saveRequest(requestData);
+        await MRXSite.saveRequest(requestData);
         window.location.href = 'submitted.html';
       } catch (error) {
         document.getElementById('requestSaveMessage').textContent =
-          'Unable to save your request. Please try again or contact us directly.';
+          'Unable to send your request: ' + error.message;
         console.error('Unable to save repair request:', error);
+        submitButton.disabled = false;
       }
     });
   </script>
+  <script src="mrx-backend-config.js"></script>
+  <script src="mrx-backend.js"></script>
   <script src="mrx-site.js"></script>
 </body>
 </html>

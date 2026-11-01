@@ -4,9 +4,9 @@ PRIVATE EDITING SETUP
 WHAT THIS SETUP DOES
 
 The admin page lets you edit product listings, personalize supported page text,
-and view/update requests saved by this browser. The current website is static:
-the dashboard does not edit the HTML files and does not send data to a server.
-Its saved data stays in this browser profile on this computer.
+and view/update customer requests stored in Supabase. Requests are shared
+between devices; products and page text remain saved only in this browser.
+See PUBLIC-SETUP.txt to configure Supabase and publish the site on GitHub Pages.
 
 FIRST-TIME SETUP ON WINDOWS
 
@@ -16,7 +16,11 @@ FIRST-TIME SETUP ON WINDOWS
 2. Confirm that these files are together in that folder:
    admin.html
    admin.js
+   admin-auth.js
+   mrx-backend-config.js
+   mrx-backend.js
    mrx-site.js
+   supabase-setup.sql
    acrylic-buttons.css
    index.html
    home.html
@@ -40,11 +44,10 @@ FIRST-TIME SETUP ON WINDOWS
    Keep this PowerShell window open while you use the site. The 127.0.0.1
    binding makes this server accessible only from this computer.
 
-6. In the same browser profile where you want to keep your edits, open:
+6. Configure Supabase by following PUBLIC-SETUP.txt. Then open:
    http://127.0.0.1:8000/admin.html
 
-7. Open the public-facing pages on this same local server when you want to
-   preview your edits:
+7. Sign in with the admin user created in Supabase. Open public pages to test:
    http://127.0.0.1:8000/index.html
    http://127.0.0.1:8000/computer-sales.html
    http://127.0.0.1:8000/submitted.html
@@ -57,24 +60,20 @@ USING THE DASHBOARD
   resized and saved with the product in this browser.
 - Page personalization: edit the supported text fields, save, then reload the
   affected page to see the change.
-- Requests: requests submitted through this same local site appear here.
-  Update a request's status, then reload its confirmation page to see the
-  current ticket's saved status.
+- Requests: submissions from the Home contact and Computer Repair forms are
+  stored in Supabase and can be managed from any signed-in admin browser.
 
 IMPORTANT LIMITATIONS
 
-- Use the same computer, browser profile, and exact address
-  (http://127.0.0.1:8000) each time. Browser storage is separate for different
-  browsers, browser profiles, computers, and website addresses.
+- Product and page-copy edits are still browser-local. Use the same browser
+  profile and exact address to keep seeing those edits.
 - Do not use a private/incognito window for changes you want to keep.
-- Clearing this site's browser data can erase products, page copy, and requests.
-  Back up browser data before clearing it; this dashboard does not yet include
-  a backup/export feature.
-- This is not a secure login. Anyone who can access the local dashboard in
-  your browser can change its data. Do not expose it on a public server or
-  store sensitive customer information in it.
-- The dashboard saves browser data, not changes to the HTML source files.
-  Browser-local edits do not automatically publish to your public website.
+- Clearing this site's browser data can erase local products/page copy.
+  Supabase requests remain stored in the shared database.
+- Keep public sign-ups disabled in Supabase and create admin accounts only for
+  trusted users. Never publish the Supabase service-role/secret key.
+- The dashboard does not edit HTML source files. Browser-local product and
+  page-copy edits do not automatically publish to the public website.
 
 TO STOP THE SERVER
 

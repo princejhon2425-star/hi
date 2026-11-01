@@ -447,13 +447,13 @@ Contact Us
 
 <form class="contact-form" id="contactForm">
 
-<input id="customerName" type="text" name="name" placeholder="Your Name" required>
+<input id="customerName" type="text" name="name" placeholder="Your Name" maxlength="160" required>
 
-<input id="customerEmail" type="email" name="email" placeholder="Email Address" required>
+<input id="customerEmail" type="email" name="email" placeholder="Email Address" maxlength="320" required>
 
-<input id="customerPhone" type="text" name="phone" placeholder="Phone Number" required>
+<input id="customerPhone" type="text" name="phone" placeholder="Phone Number" maxlength="50" required>
 
-<textarea id="customerIssue" rows="6" name="issue" placeholder="Describe Your Problem" required></textarea>
+<textarea id="customerIssue" rows="6" name="issue" maxlength="3000" placeholder="Describe Your Problem" required></textarea>
 
 <button class="acrylic-btn" type="submit">
 Send Request
@@ -465,26 +465,32 @@ Send Request
 <script>
   const contactForm = document.getElementById('contactForm');
 
-  contactForm.addEventListener('submit', function (event) {
+  contactForm.addEventListener('submit', async function (event) {
     event.preventDefault();
+    const submitButton = contactForm.querySelector('[type="submit"]');
+    submitButton.disabled = true;
 
     const requestData = {
       name: document.getElementById('customerName').value.trim(),
       email: document.getElementById('customerEmail').value.trim(),
       phone: document.getElementById('customerPhone').value.trim(),
-      issue: document.getElementById('customerIssue').value.trim()
+      issue: document.getElementById('customerIssue').value.trim(),
+      sourcePage: 'home.html'
     };
 
     try {
-      MRXSite.saveRequest(requestData);
+      await MRXSite.saveRequest(requestData);
       window.location.href = 'submitted.html';
     } catch (error) {
       document.getElementById('requestSaveMessage').textContent =
-        'Unable to save your request. Please try again or contact us directly.';
+        'Unable to send your request: ' + error.message;
       console.error('Unable to save customer request:', error);
+      submitButton.disabled = false;
     }
   });
 </script>
+<script src="mrx-backend-config.js"></script>
+<script src="mrx-backend.js"></script>
 <script src="mrx-site.js"></script>
 
 </section>

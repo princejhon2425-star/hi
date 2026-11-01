@@ -217,18 +217,15 @@
     });
   }
 
-  function getRequests() {
-    return site.getRequests();
-  }
-
-  function renderRequests() {
-    const requests = getRequests();
+  async function renderRequests() {
+    const requests = await window.MRXBackend.listRequests();
     const table = document.getElementById('requestTable');
     table.replaceChildren();
-    requests.slice().reverse().forEach((request) => {
+    requests.forEach((request) => {
       const row = document.createElement('tr');
       const values = [
-        request.ticketId || 'MRX-LEGACY',
+        request.ticketId,
+        request.sourcePage,
         request.name,
         [request.email, request.phone].filter(Boolean).join(' • '),
         [request.service, request.issue].filter(Boolean).join(': '),
@@ -244,6 +241,7 @@
       const statusSelect = document.createElement('select');
       statusSelect.className = 'status-select';
       statusSelect.setAttribute('aria-label', 'Request status');
+      statusSelect.dataset.previousStatus = request.status || 'New';
       requestStatuses.forEach((status) => {
         const option = document.createElement('option');
         option.value = status;
@@ -251,7 +249,9 @@
         option.selected = (request.status || 'New') === status;
         statusSelect.appendChild(option);
       });
-      statusSelect.addEventListener('change', () => updateRequestStatus(request.ticketId, statusSelect.value));
+      statusSelect.addEventListener('change', () => {
+        updateRequestStatus(request.ticketId, statusSelect.value, statusSelect);
+      });
       statusCell.appendChild(statusSelect);
       row.appendChild(statusCell);
 
@@ -260,7 +260,7 @@
       deleteButton.type = 'button';
       deleteButton.className = 'acrylic-btn danger';
       deleteButton.textContent = 'Delete';
-      deleteButton.addEventListener('click', () => deleteRequest(request.ticketId));
+      deleteButton.addEventListener('click', () => deleteRequest(request.ticketId, deleteButton));
       actionCell.appendChild(deleteButton);
       row.appendChild(actionCell);
       table.appendChild(row);
@@ -268,37 +268,31 @@
     document.getElementById('noRequests').hidden = requests.length > 0;
   }
 
-  function updateRequestStatus(ticketId, status) {
-    const requests = getRequests();
-    const request = requests.find((item) => item.ticketId === ticketId);
-    if (!request) {
-      showMessage(requestMessage, 'Request not found. Refresh the list and try again.', true);
-      return;
+  async function updateRequestStatus(ticketId, status, select) {
+    const previousStatus = select.dataset.previousStatus || 'New';
+    select.disabled = true;
+    try {
+      await window.MRXBackend.updateRequestStatus(ticketId, status);
+      select.dataset.previousStatus = status;
+      showMessage(requestMessage, 'Request status updated.', false);
+    } catch (error) {
+      select.value = previousStatus;
+      showMessage(requestMessage, error.message, true);
+    } finally {
+      select.disabled = false;
     }
-    request.status = status;
-    site.write(site.keys.requests, requests);
-    const latest = site.read(site.keys.latestRequest, null);
-    if (latest && (latest.ticketId === ticketId || (!latest.ticketId && ticketId === 'MRX-LEGACY'))) {
-      latest.status = status;
-      site.write(site.keys.latestRequest, latest);
-    }
-    showMessage(requestMessage, 'Request status updated.', false);
   }
 
-  function deleteRequest(ticketId) {
-    const requests = getRequests();
-    const updated = requests.filter((request) => request.ticketId !== ticketId);
-    if (updated.length === requests.length) {
-      showMessage(requestMessage, 'Request not found.', true);
-      return;
+  async function deleteRequest(ticketId, button) {
+    button.disabled = true;
+    try {
+      await window.MRXBackend.deleteRequest(ticketId);
+      await renderRequests();
+      showMessage(requestMessage, 'Request deleted.', false);
+    } catch (error) {
+      button.disabled = false;
+      showMessage(requestMessage, error.message, true);
     }
-    site.write(site.keys.requests, updated);
-    const latest = site.read(site.keys.latestRequest, null);
-    if (latest && (latest.ticketId === ticketId || (!latest.ticketId && ticketId === 'MRX-LEGACY'))) {
-      localStorage.removeItem(site.keys.latestRequest);
-    }
-    renderRequests();
-    showMessage(requestMessage, 'Request deleted.', false);
   }
 
   function setActiveTab(tabName) {
@@ -367,12 +361,16 @@
     }
   });
 
-  document.getElementById('refreshRequestsButton').addEventListener('click', () => {
+  document.getElementById('refreshRequestsButton').addEventListener('click', async (event) => {
+    const button = event.currentTarget;
+    button.disabled = true;
     try {
-      renderRequests();
+      await renderRequests();
       showMessage(requestMessage, 'Request list refreshed.', false);
     } catch (error) {
       showMessage(requestMessage, error.message, true);
+    } finally {
+      button.disabled = false;
     }
   });
 
@@ -391,9 +389,12 @@
 
   try {
     renderProducts();
-    renderRequests();
     loadContentForm();
   } catch (error) {
     showMessage(document.getElementById('dashboardMessage'), error.message, true);
   }
+
+  renderRequests().catch((error) => {
+    showMessage(requestMessage, error.message, true);
+  });
 })();

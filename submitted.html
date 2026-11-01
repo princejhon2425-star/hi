@@ -530,9 +530,16 @@
     </main>
   </div>
 
+  <script src="mrx-backend-config.js"></script>
+  <script src="mrx-backend.js"></script>
   <script src="mrx-site.js"></script>
   <script>
-    const savedRequest = MRXSite.read(MRXSite.keys.latestRequest, {}) || {};
+    let savedRequest = {};
+    try {
+      savedRequest = JSON.parse(sessionStorage.getItem(MRXSite.keys.latestRequest) || '{}');
+    } catch (error) {
+      console.error('Could not read the temporary request confirmation:', error);
+    }
 
     const request = {
       name: savedRequest.name || 'Name will appear here',
