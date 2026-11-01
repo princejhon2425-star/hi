@@ -150,20 +150,20 @@
   <main class="shell">
     <section id="adminLogin" class="panel auth-panel" aria-labelledby="authTitle">
       <h1 id="authTitle">M.R.X. Technologies</h1>
-      <p id="authDescription" class="muted">Set a password to open the admin dashboard in this browser.</p>
+      <p id="authDescription" class="muted">Sign in with your admin account to open the shared dashboard.</p>
       <form id="authForm">
         <div class="field">
+          <label for="authEmail">Admin email</label>
+          <input id="authEmail" type="email" autocomplete="username" required>
+        </div>
+        <div class="field">
           <label for="authPassword">Password</label>
-          <input id="authPassword" type="password" autocomplete="current-password" minlength="8" required>
+          <input id="authPassword" type="password" autocomplete="current-password" required>
         </div>
-        <div id="authConfirmField" class="field" hidden>
-          <label for="authConfirm">Confirm password</label>
-          <input id="authConfirm" type="password" autocomplete="new-password" minlength="8">
-        </div>
-        <button id="authSubmit" class="acrylic-btn" type="submit">Set password</button>
+        <button id="authSubmit" class="acrylic-btn" type="submit">Sign in</button>
         <p id="authMessage" class="message" role="status" aria-live="polite"></p>
       </form>
-      <p class="help">This lock is stored only in this browser. It is a convenience for local use, not secure protection against someone who can access or inspect these files. The dashboard data is also stored only in this browser.</p>
+      <p class="help">Create this admin account in your Supabase project. Customer requests are private and available only to signed-in admins.</p>
     </section>
 
     <div id="adminDashboard" hidden>
@@ -177,13 +177,13 @@
     </header>
 
     <aside class="notice">
-      <strong>Local dashboard:</strong> Products, page copy, and requests are saved in this browser; they are not shared with visitors or other devices. The password screen is only a local convenience and is not server-side security.
+      <strong>Shared requests:</strong> Contact and repair form submissions are stored in Supabase and can be viewed here from any device. Products and page-copy edits remain in this browser.
     </aside>
     <p id="dashboardMessage" class="message" role="status"></p>
 
     <section class="panel">
       <h2>Manage your website</h2>
-      <p class="muted">Update products, personalize page text, and track requests stored in this browser.</p>
+      <p class="muted">Update local products and page text, and manage customer requests submitted from the website.</p>
       <div class="tabs" role="tablist" aria-label="Dashboard sections">
         <button class="acrylic-btn" type="button" role="tab" data-tab="products" aria-selected="true">Products</button>
         <button class="acrylic-btn" type="button" role="tab" data-tab="content" aria-selected="false">Page personalization</button>
@@ -284,14 +284,14 @@
 
       <section data-panel="requests" hidden>
         <h3>Repair and contact requests</h3>
-        <p class="muted">Requests are only available in this browser. Reload the confirmation page to see the latest saved status for the current ticket.</p>
+        <p class="muted">Requests from the home and computer-repair pages are shared across devices. Refresh to see new submissions.</p>
         <div class="actions">
           <button id="refreshRequestsButton" class="acrylic-btn" type="button">Refresh list</button>
         </div>
         <p id="requestMessage" class="message" role="status"></p>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Ticket</th><th>Customer</th><th>Contact</th><th>Request</th><th>Submitted</th><th>Status</th><th>Action</th></tr></thead>
+            <thead><tr><th>Ticket</th><th>Page</th><th>Customer</th><th>Contact</th><th>Request</th><th>Submitted</th><th>Status</th><th>Action</th></tr></thead>
             <tbody id="requestTable"></tbody>
           </table>
         </div>
@@ -300,6 +300,8 @@
     </section>
     </div>
   </main>
+  <script src="mrx-backend-config.js"></script>
+  <script src="mrx-backend.js"></script>
   <script src="admin-auth.js"></script>
 </body>
 </html>

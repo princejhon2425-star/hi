@@ -39,20 +39,25 @@
       : [];
   }
 
-  function saveRequest(data) {
-    const requests = getRequests();
+  async function saveRequest(data) {
+    if (!window.MRXBackend || typeof window.MRXBackend.submitRequest !== 'function') {
+      throw new Error('Shared request storage is unavailable. Follow the Supabase setup guide.');
+    }
+    if (!['home.html', 'computer-repair.html'].includes(data.sourcePage)) {
+      throw new Error('The request source page is invalid.');
+    }
     const ticketId = 'MRX-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6).toUpperCase();
-    const request = {
+    const savedRequest = await window.MRXBackend.submitRequest({
       ...data,
       ticketId,
-      submittedAt: new Date().toISOString(),
-      status: 'New'
-    };
+    });
 
-    requests.push(request);
-    write(keys.requests, requests);
-    write(keys.latestRequest, request);
-    return request;
+    try {
+      sessionStorage.setItem(keys.latestRequest, JSON.stringify(savedRequest));
+    } catch (error) {
+      console.error('Request was sent, but its temporary confirmation copy could not be saved:', error);
+    }
+    return savedRequest;
   }
 
   function isSafeImagePath(value) {
