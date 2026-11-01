@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#020617">
+  <title>M.R.X Computer Solutions</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 24px;
+      color: #f8fafc;
+      background: linear-gradient(135deg, #020617 0%, #0f172a 45%, #1e293b 100%);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .entry-box {
+      width: min(760px, 100%);
+      padding: 48px 32px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 22px;
+      background: rgba(15, 23, 42, 0.78);
+      box-shadow: 0 30px 80px rgba(15, 23, 42, 0.55);
+      text-align: center;
+    }
+
+    .brand {
+      margin: 0 0 16px;
+      color: #facc15;
+      font-size: clamp(2rem, 4vw, 4rem);
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .domain {
+      margin: 0 0 28px;
+      color: #7dd3fc;
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      letter-spacing: 0.12em;
+      text-transform: lowercase;
+    }
+
+    .tagline {
+      margin: 0 0 28px;
+      color: #cbd5e1;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 16px 32px;
+      border-radius: 999px;
+      color: #111827;
+      background: linear-gradient(135deg, #f59e0b, #f97316);
+      box-shadow: 0 14px 28px rgba(249, 115, 22, 0.35);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 32px rgba(249, 115, 22, 0.4);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid #7dd3fc;
+      outline-offset: 4px;
+    }
+
+    .meta {
+      margin: 20px 0 0;
+      color: #94a3b8;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 480px) {
+      .entry-box {
+        padding: 40px 22px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn {
+        transition: none;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="acrylic-buttons.css">
+</head>
+<body>
+  <main class="entry-box">
+    <h1 class="brand" data-mrx-content="indexBrand">M.R.X</h1>
+    <p class="domain" data-mrx-content="indexDomain">m.r.x.com</p>
+    <p class="tagline" data-mrx-content="indexTagline">Computer repair &bull; computer sales &bull; laptop and pc accessories</p>
+    <a class="btn acrylic-btn" href="home.html">Enter Website</a>
+    <p class="meta">Trusted local tech support</p>
+  </main>
+  <script src="mrx-site.js"></script>
+</body>
+</html>

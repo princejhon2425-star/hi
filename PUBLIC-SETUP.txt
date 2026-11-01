@@ -1,0 +1,86 @@
+M.R.X COMPUTER SOLUTIONS
+PUTTING YOUR WEBSITE ONLINE
+
+This guide explains how to let other people visit your website.
+
+IMPORTANT: HOW THE SITE WORKS RIGHT NOW
+
+Your website pages can be put online, but the admin page saves its changes
+inside one browser on one computer. This means:
+
+- Visitors will not see products or text that you added in your private
+  dashboard.
+- Requests sent by visitors will not appear in your private dashboard.
+- Product pictures uploaded in the dashboard stay in that browser too.
+
+To share those changes with everyone, the website needs a secure server and
+shared database. The instructions for that are in "TO SHARE ADMIN CHANGES WITH
+VISITORS" below.
+
+PUTTING THE VISITOR WEBSITE ONLINE
+
+1. Choose a website host. A host is a service that stores your website and
+   makes it available on the internet. This site can use a static website host.
+
+2. Upload these files and any pictures they use. Keep the files together and
+   keep their names exactly the same:
+
+   index.html
+   home.html
+   computer-repair.html
+   computer-sales.html
+   submitted.html
+   acrylic-buttons.css
+   mrx-site.js
+   Any pictures used by the pages
+
+3. Tell the host to open "index.html" when someone visits your website address.
+   Most hosts do this automatically.
+
+4. Turn on HTTPS in the host settings. HTTPS protects the connection between
+   your visitors and the website. Do not collect sensitive information through
+   this site until it has secure, shared request storage.
+
+5. Visit your public website and check each page, picture, and button.
+
+KEEP THE ADMIN PAGE PRIVATE
+
+Do not upload admin.html or admin.js to a public website yet. The admin page
+does not have a real secure password system. If it is uploaded publicly,
+someone could open it and change its browser data. Hiding a link to the admin
+page does not protect it.
+
+ABOUT PRODUCTS AND PICTURES
+
+The computer sales page will be empty until products are added. Products added
+through the current admin page are visible only in that browser. Pictures
+uploaded there are also stored in that browser and are not included when you
+upload the website files.
+
+To show a product to all visitors today, the product and its picture must be
+added to the website files before you upload them. The home page also refers to
+"front.png". Include that picture when you upload the site, or change the home
+page to use a picture that you have.
+
+TO SHARE ADMIN CHANGES WITH VISITORS
+
+This needs additional website software; it is not a setting you can turn on in
+the current dashboard. A developer will need to:
+
+1. Set up a server and database to store products, page text, and repair
+   requests in one shared place.
+2. Add secure sign-in for the admin. The server must check permissions before
+   allowing changes. A password written into a web page is not secure.
+3. Connect the public pages to the shared database so visitors can see the
+   current products and text.
+4. Connect the admin page to the server so your edits and uploaded pictures are
+   saved for everyone.
+5. Connect repair forms to the server so visitor requests appear in the admin.
+6. Use HTTPS, protect customer details, and make regular database backups.
+7. Test on a different browser or phone: make an admin change and confirm it
+   appears on the public site; submit a test request and confirm it appears in
+   the admin.
+
+Until that work is done, changes made in the admin page are only for your
+current browser. To update the public site, edit the website files and upload
+the updated files again.

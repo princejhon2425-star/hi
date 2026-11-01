@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Computer Repair | M.R.X Computer Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050505;
+      --panel: rgba(16, 16, 16, 0.92);
+      --panel-soft: rgba(22, 22, 22, 0.75);
+      --line: rgba(255,255,255,0.08);
+      --text: #f5f5f5;
+      --muted: #d1d1d1;
+      --primary: #00d9ff;
+      --primary-2: #8ef4ff;
+      --shadow: rgba(0,0,0,0.45);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top, rgba(0,217,255,0.14), transparent 25%),
+        linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.03)),
+        url('ChatGPT Image Aug 29, 2026, 08_32_48 PM.png') center/cover fixed no-repeat;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 60px auto;
+      background: rgba(6,6,6,0.8);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 30px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(0,0,0,0.38);
+    }
+
+    .brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+    }
+
+    .nav a:hover { color: var(--text); }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      padding: 32px;
+    }
+
+    .hero {
+      background: rgba(17,17,17,0.9);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 30px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: var(--primary);
+      letter-spacing: 0.1em;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 4vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.05em;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin: 18px 0 24px;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+    }
+
+    .check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(0,217,255,0.12);
+      border: 1px solid rgba(0,217,255,0.25);
+      display: grid;
+      place-items: center;
+      color: var(--primary);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .card-panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+    }
+
+    .form-title {
+      margin: 0 0 18px;
+      font-size: 1.5rem;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      width: 100%;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: var(--text);
+      font: inherit;
+      padding: 14px 16px;
+      resize: vertical;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: rgba(255,255,255,0.45);
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .submit-btn {
+      margin-top: 8px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: #031417;
+      border: none;
+      border-radius: 12px;
+      padding: 16px 18px;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 18px 35px rgba(0,217,255,0.18);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 900px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .row {
+        grid-template-columns: 1fr;
+      }
+
+      .content, .hero, .card-panel {
+        padding: 20px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="acrylic-buttons.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand" data-mrx-content="brand">M.R.X Computer Solutions</div>
+      <nav class="nav">
+        <a href="home.html">Home</a>
+        <a href="home.html#services">Services</a>
+        <a href="home.html#about">About</a>
+        <a href="home.html#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main class="content">
+      <section class="hero">
+        <div class="eyebrow">Repair Service</div>
+        <h1 data-mrx-content="repairTitle">Computer Repair</h1>
+        <p class="lead" data-mrx-content="repairLead">
+          Fast and reliable solutions for slow systems, broken screens, software issues,
+          hardware failures, and everyday computer problems. We fix what matters and keep your devices running smoothly.
+        </p>
+
+        <ul class="feature-list">
+          <li><span class="check">✓</span> Hardware diagnostics and repair</li>
+          <li><span class="check">✓</span> Virus and software troubleshooting</li>
+          <li><span class="check">✓</span> Screen, keyboard, and battery fixes</li>
+          <li><span class="check">✓</span> Performance upgrades and setup</li>
+        </ul>
+      </section>
+
+      <section class="card-panel">
+        <h2 class="form-title" data-mrx-content="repairFormHeading">Book a Repair</h2>
+
+        <form class="contact-form" id="repairForm">
+          <div class="row">
+            <input id="repairName" type="text" name="name" placeholder="Your Name" required />
+            <input id="repairEmail" type="email" name="email" placeholder="Email Address" required />
+          </div>
+
+          <div class="row">
+            <input id="repairPhone" type="text" name="phone" placeholder="Phone Number" required />
+            <select id="repairService" name="service" required>
+              <option>Computer Repair</option>
+              <option>Software Installation</option>
+              <option>Hardware Upgrade</option>
+            </select>
+          </div>
+
+          <textarea id="repairIssue" name="issue" rows="5" placeholder="Describe your computer problem" required></textarea>
+
+          <button type="submit" class="submit-btn acrylic-btn">Submit Repair Request</button>
+          <p id="requestSaveMessage" class="message" role="status"></p>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const repairForm = document.getElementById('repairForm');
+
+    repairForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const requestData = {
+        name: document.getElementById('repairName').value.trim(),
+        email: document.getElementById('repairEmail').value.trim(),
+        phone: document.getElementById('repairPhone').value.trim(),
+        issue: document.getElementById('repairIssue').value.trim(),
+        service: document.getElementById('repairService').value.trim()
+      };
+
+      try {
+        MRXSite.saveRequest(requestData);
+        window.location.href = 'submitted.html';
+      } catch (error) {
+        document.getElementById('requestSaveMessage').textContent =
+          'Unable to save your request. Please try again or contact us directly.';
+        console.error('Unable to save repair request:', error);
+      }
+    });
+  </script>
+  <script src="mrx-site.js"></script>
+</body>
+</html>
